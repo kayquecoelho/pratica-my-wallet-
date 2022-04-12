@@ -14,3 +14,11 @@ export async function insertUser(name, email, hashedPassword) {
     [name, email, hashedPassword]
   );
 }
+
+export async function selectUser(email) {
+  const { rows } = await connection.query(
+    `SELECT * FROM "users" WHERE "email"=$1`,
+    [email]
+  );
+  return rows;
+}
