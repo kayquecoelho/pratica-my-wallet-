@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import conflictError from "../errors/conflictError.js";
 import unauthorizedError from "../errors/unauthorizedError.js";
 import * as authRepository from "../repositories/authRepository.js";
@@ -18,6 +19,6 @@ export async function login(email, password) {
   if (!user || !bcrypt.compareSync(password, user.password)) throw unauthorizedError("User");
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-  
+
   return token;
 }
