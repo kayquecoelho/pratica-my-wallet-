@@ -1,4 +1,4 @@
-import * as financialEventsService from "../services/financialEventsService.js"
+import * as financialEventsService from "../services/financialEventsService.js";
 
 export async function getFinancialEvents(req, res) {
   const { user } = res.locals;
@@ -19,4 +19,12 @@ export async function insertFinancialEvent(req, res) {
   await financialEventsService.insertFinancialEvent(user.id, type, value);
   
   res.sendStatus(201);
+}
+
+export async function calculateSum(req, res) {
+  const { user } = res.locals;
+
+  const sum = await financialEventsService.calculateBalalance(user.id);
+
+  res.send({ sum });
 }

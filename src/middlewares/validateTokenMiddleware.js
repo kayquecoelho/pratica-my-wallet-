@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 export default async function validateTokenMiddleware(req, res, next) {
   const authorization = req.headers.authorization || "";
   const token = authorization.replace("Bearer ", "");
@@ -5,7 +7,7 @@ export default async function validateTokenMiddleware(req, res, next) {
   if (!token) return res.sendStatus(401);
 
   let user;
-
+  
   try {
     user = jwt.verify(token, process.env.JWT_SECRET);
   } catch {
